@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>학습지 제작 도우미</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js"></script>
+    <script src="https://unpkg.com/docx@7.1.0/build/index.js"></script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <!-- Grid Item 1: Header & Intro -->
+        <header class="bento-item header">
+            <h1>학습지 제작 도우미</h1>
+            <p>AI와 함께 PDF 자료를 나만의 학습지로 변환하세요.</p>
+        </header>
+
+        <!-- Grid Item 2: API Key Input -->
+        <section class="bento-item config-api">
+            <h2>🔑 OpenAI API Key</h2>
+            <div class="input-group">
+                <input type="password" id="apiKey" placeholder="sk-..." autocomplete="off">
+                <p class="description">키는 저장되지 않고 브라우저에서만 사용됩니다.</p>
+            </div>
+        </section>
+
+        <!-- Grid Item 3: File Upload -->
+        <section class="bento-item upload-zone" id="dropZone">
+            <div class="upload-content">
+                <span class="icon">📄</span>
+                <h3>PDF 파일 업로드</h3>
+                <p>여기로 파일을 드래그하거나 클릭하세요</p>
+                <input type="file" id="fileInput" accept=".pdf" hidden>
+                <div id="fileInfo" class="hidden"></div>
+            </div>
+        </section>
+
+        <!-- Grid Item 4: Options -->
+        <section class="bento-item options">
+            <h2>⚙️ 설정</h2>
+
+            <div class="option-group">
+                <label>학습지 유형</label>
+                <div class="radio-group">
+                    <label class="radio-card">
+                        <input type="radio" name="workbookType" value="blank" checked>
+                        <div class="card-content">
+                            <span class="emoji">📝</span>
+                            <span>빈칸 뚫기</span>
+                        </div>
+                    </label>
+                    <label class="radio-card">
+                        <input type="radio" name="workbookType" value="quiz">
+                        <div class="card-content">
+                            <span class="emoji">✅</span>
+                            <span>형성 평가</span>
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+            <div class="option-group">
+                <label>출력 형태</label>
+                <div class="select-wrapper">
+                    <select disabled>
+                        <option value="docx" selected>DOCX (Word 문서)</option>
+                    </select>
+                </div>
+            </div>
+        </section>
+
+        <!-- Grid Item 5: Prompt -->
+        <section class="bento-item prompt-area">
+            <h2>✨ 추가 요청사항</h2>
+            <textarea id="userPrompt" placeholder="예: 빈칸은 핵심 키워드 위주로 만들어줘, 문제는 5개 만들어줘..."></textarea>
+        </section>
+
+        <!-- Grid Item 6: Action -->
+        <section class="bento-item action-area">
+            <button id="generateBtn" disabled>
+                <span class="btn-text">학습지 생성하기</span>
+                <span class="loader hidden"></span>
+            </button>
+            <div id="statusMessage">준비 완료</div>
+        </section>
+
+        <!-- Grid Item 7: PDF Preview (New) -->
+        <section class="bento-item pdf-preview hidden" id="pdfPreviewContainer">
+            <h2>📄 PDF 미리보기</h2>
+            <div id="pdfViewer" class="pdf-viewer-content"></div>
+        </section>
+    </div>
+
+    <!-- Script -->
+    <script src="script.js"></script>
+</body>
+
+</html>
